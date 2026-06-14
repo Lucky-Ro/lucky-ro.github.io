@@ -2,16 +2,20 @@
 title: 新手友好 | Hadoop报告插件教程（hadoop-lab-report skill）
 date: 2026-06-14 12:00:00 +0800
 categories: [湛科作业克星]
-tags: [Hadoop, 新手友好, Claude Code, skill]
+tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 ---
 
-## 啥玩意？
+## 这是啥东东？
 
-把一篇 [黑隼](https://heisun.xyz/docs/hadoop-e/hadoop-e02/) 的 Hadoop 实验教程链接丢给这个 skill，它就会自动帮你：
+> **把重复的实验劳动自动化，将时间还给大学生。**
+
+抄教程、敲命令、等结果、截图，再一张张塞进 Word 里排版……一次 Hadoop 实验跑下来，真正动脑的没几步，剩下大半个下午全耗在**CtrlCV**上。
+
+这个 skill 想干的，就是把这些重复环节交给 AI —— 只需**说一句话**，它就自动帮你：
 
 > **读教程 → 在你的虚拟机上执行 → 截图 → 生成 Word 实验报告**
 
-然后你就能直接交作业啦 ：）
+然后你就能直接交作业，把省下来的时间还给自己 —— 去学真正想学的、做想做的，或者干脆好好歇会儿 ：）
 
 ### [啥是SKILL？](https://lucky-ro.github.io/posts/hadoop-lab-report-docs/#skill解释) 
 
@@ -28,7 +32,7 @@ tags: [Hadoop, 新手友好, Claude Code, skill]
 
 2. 下载SKILL技能安装脚本（该脚本是我写的，没有病毒：））
 
-<a href="/assets/files/update-claude-skill.ps1" download> **点击下载 ：）**(install-claude-code.ps1)</a>
+<a href="/assets/files/update-claude-skill.ps1" download> **点击下载 ：）**(update-claude-skill.ps1)</a>
 
 3. 运行脚本
 
@@ -92,7 +96,7 @@ https://heisun.xyz/docs/hadoop-e/hadoop-e05
 
 ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude8.png)
 
-快去交作业吧 ：）
+**你只管去忙别的，回来报告就躺在工作目录里 —— 交完作业，省下的这段时间归你 ：）**
 
 > 换实验同理：把 `hadoop-e05` 换成 `hadoop-e01`～`hadoop-e07`（对应 P1–P7）即可，身份和连接信息不用重新填。
 
