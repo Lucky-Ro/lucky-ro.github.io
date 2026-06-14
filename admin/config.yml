@@ -4,6 +4,8 @@ backend:
   branch: main
   base_url: https://sveltia-cms-auth.luomingyu2005.workers.dev
 
+publish_mode: editorial_workflow  # 加入草稿功能
+
 media_folder: "assets/img/posts" # 在編輯器上傳圖片時，圖片存放的實體路徑
 public_folder: "/assets/img/posts" # 文章中引用圖片的網址路徑
 
