@@ -9,7 +9,7 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 
 > **把重复的实验劳动自动化，将时间还给大学生。**
 
-抄教程、敲命令、等结果、截图，再一张张塞进 Word 里排版……一次 Hadoop 实验跑下来，真正动脑的没几步，剩下大半个下午全耗在**CtrlCV**上。
+抄教程、敲命令、等结果、截图，再一张张塞进 Word 里排版……一次 Hadoop 实验跑下来，真正动脑的没几步，剩下大半个下午全耗在 **CtrlCV** 上。
 
 这个 skill 想干的，就是把这些重复环节交给 AI —— 只需**说一句话**，它就自动帮你：
 
@@ -17,8 +17,7 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 
 然后你就能直接交作业，把省下来的时间还给自己 —— 去学真正想学的、做想做的，或者干脆好好歇会儿 ：）
 
-### [啥是SKILL？](https://lucky-ro.github.io/posts/hadoop-lab-report-docs/#skill解释) 
-
+### [啥是SKILL？](#skill解释)
 
 > **！！ 工具本身无好坏**：请遵守课程规定酌情使用，使用中出现的任何问题本工具概不负责。
 
@@ -26,60 +25,65 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 
 ## 一、前期准备
 
-1. 安装并配置 Claude Code。
+**1. 安装并配置 Claude Code**
 
-**还不会配置？** [新手友好：三步配置 Claude Code 与 DeepSeek](https://lucky-ro.github.io/posts/go-claude-code)
+还不会配置？看这篇 → [新手友好：三步配置 Claude Code 与 DeepSeek](https://lucky-ro.github.io/posts/go-claude-code)
 
-2. 下载SKILL技能安装脚本（该脚本是我写的，没有病毒：））
+**2. 下载 SKILL 技能安装脚本**（该脚本是我写的，没有病毒：））
 
 <a href="/assets/files/update-claude-skill.ps1" download> **点击下载 ：）**(update-claude-skill.ps1)</a>
 
-3. 运行脚本
+**3. 运行脚本**
 
- - 在脚本文件上**右键 → 使用 终端（或PowerShell） 运行**。
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps0.png)
+在脚本文件上**右键 → 使用 终端（或 PowerShell） 运行**。
 
- - 注：使用较新电脑的同学们右键点击 **使用 终端 打开**
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps1.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps0.png){: .w-75 }
 
-当命令窗消失之后，就代表安装好了。
-
- - 我们可以在C:\Users\你的用户名\.claude\skill 中查看。
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps2.png)
+> 注：使用较新电脑的同学们右键点击 **使用 终端 打开**。
 {: .prompt-tip }
 
-3. 确认实验虚拟机已开机，且能用 **FinalShell** 连上。
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps1.png){: .w-75 }
 
-4. 新建一个空文件夹作为工作目录，并把**老师发的 Hadoop 实验材料文件夹**和**报告模板**都拷进这个工作目录。
+当命令窗消失之后，就代表安装好了。可以在 `C:\Users\你的用户名\.claude\skills` 里查看安装结果。
 
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude1.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps2.png){: .w-75 }
 
- - 老师发的实验材料文件夹
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude2.png)
+**4. 确认实验虚拟机已开机**，且能用 **FinalShell** 连上。
+
+**5. 新建一个空文件夹作为工作目录**，并把**老师发的 Hadoop 实验材料文件夹**和**报告模板**都拷进这个工作目录。
+
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude1.png){: .w-75 }
+
+> 下图就是老师发的实验材料文件夹。
 {: .prompt-tip }
 
- - 这一步做好应该是这样
- ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude3.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude2.png){: .w-75 }
 
-5.并在**文件夹内**打开 Claude Code （AI 会把报告写在这里）。
+这一步做好之后，应该是下面这样：
 
- - 右键这个文件夹，选择**在终端打开**
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude4.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude3.png){: .w-75 }
 
- - 输入:
+**6. 在文件夹内打开 Claude Code**（AI 会把报告写在这里）
+
+右键这个文件夹，选择**在终端打开**：
+
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude4.png){: .w-75 }
+
+然后输入：
 
 ```powershell
 claude
 ```
 
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude5.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude5.png){: .w-75 }
 
- - 确认
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude6.png)
+确认：
 
- - 将会弹出Claude的对话框。如图，你可以输入 /skill 确认插件安装成功。
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude7.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude6.png){: .w-75 }
 
+将会弹出 Claude 的对话框。如图，你可以输入 `/skill` 确认插件安装成功：
+
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude7.png){: .w-75 }
 
 ## 二、一句话开跑（以 P5 / hadoop-e05 为例，Codex 同理）
 
@@ -94,7 +98,7 @@ https://heisun.xyz/docs/hadoop-e/hadoop-e05
 
 就这一句。接下来它会自动：弹窗收集你的姓名学号（只存在本地）→ 读教程 → 连接虚拟机 → 逐步执行 → 截图 → 排版 → 生成报告。
 
-![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude8.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude8.png){: .w-75 }
 
 **你只管去忙别的，回来报告就躺在工作目录里 —— 交完作业，省下的这段时间归你 ：）**
 
@@ -102,24 +106,25 @@ https://heisun.xyz/docs/hadoop-e/hadoop-e05
 
 ## 注意事项!!
 
-### **跑之前务必：给虚拟机拍快照！**
+> ⚠️ **跑之前务必：给虚拟机拍快照！**
 {: .prompt-warning }
 
-![备份](/assets/img/2026-06-14-hadoop-lab-report-docs/bk.png)
+![备份](/assets/img/2026-06-14-hadoop-lab-report-docs/bk.png){: .w-75 }
 
 **先给 NodeA、B、C 三台虚拟机拍快照（备份当前状态）**。万一执行出错，可以随时回滚，不至于把环境弄坏。
-
 
 ### 卡住了也没关系
 
 中途如果出问题，程序会弹出提醒并引导你处理；处理完**接着跑**就行，不用从头重来。
 
 ---
+
 ## 杂
 
 ### SKILL解释
-> 不太准确的解释：可以理解成AI的技能包，可以让大模型学会一些技能。比如说连接虚拟机，读老师的教程...
+
+> 不太准确的解释：可以理解成 AI 的技能包，可以让大模型学会一些技能。比如说连接虚拟机，读老师的教程……
 
 ---
 
- [`skill/hadoop-lab-report/ 仓库地址`](https://github.com/Lucky-Ro/zjkju_Copilot/blob/main/skill/hadoop-lab-report)
+[`skill/hadoop-lab-report/ 仓库地址`](https://github.com/Lucky-Ro/zjkju_Copilot/blob/main/skill/hadoop-lab-report)
