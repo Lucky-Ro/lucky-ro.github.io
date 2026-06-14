@@ -7,7 +7,7 @@ tags: [Hadoop, 新手友好, Claude Code, skill]
 
 ## 啥玩意？
 
-把一篇 [黑隼](https://heisun.xyz/docs/hadoop-e02/) 的 Hadoop 实验教程链接丢给这个 skill，它就会自动帮你：
+把一篇 [黑隼](https://heisun.xyz/docs/hadoop-e/hadoop-e02/) 的 Hadoop 实验教程链接丢给这个 skill，它就会自动帮你：
 
 > **读教程 → 在你的虚拟机上执行 → 截图 → 生成 Word 实验报告**
 
