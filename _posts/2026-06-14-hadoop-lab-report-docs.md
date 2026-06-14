@@ -37,25 +37,25 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 3. 运行脚本
 
  - 在脚本文件上**右键 → 使用 终端（或PowerShell） 运行**。
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps0.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps0.png)
 
  - 注：使用较新电脑的同学们右键点击 **使用 终端 打开**
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps1.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps1.png)
 
 当命令窗消失之后，就代表安装好了。
 
  - 我们可以在C:\Users\你的用户名\.claude\skill 中查看。
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps2.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps2.png)
 {: .prompt-tip }
 
 3. 确认实验虚拟机已开机，且能用 **FinalShell** 连上。
 
 4. 新建一个空文件夹作为工作目录，并把**老师发的 Hadoop 实验材料文件夹**和**报告模板**都拷进这个工作目录。
 
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude1.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude1.png)
 
  - 老师发的实验材料文件夹
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude2.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude2.png)
 {: .prompt-tip }
 
  - 这一步做好应该是这样
@@ -64,7 +64,7 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 5.并在**文件夹内**打开 Claude Code （AI 会把报告写在这里）。
 
  - 右键这个文件夹，选择**在终端打开**
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude4.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude4.png)
 
  - 输入:
 
@@ -72,13 +72,13 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 claude
 ```
 
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude5.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude5.png)
 
  - 确认
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude6.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude6.png)
 
  - 将会弹出Claude的对话框。如图，你可以输入 /skill 确认插件安装成功。
- - ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude7.png)
+![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude7.png)
 
 
 ## 二、一句话开跑（以 P5 / hadoop-e05 为例，Codex 同理）
