@@ -26,6 +26,7 @@ pin: false
 **2. 一个 DeepSeek API Key。** 这是脚本配置时要用到的「钥匙」
 >（你需要向里面充些钱，应该不会花很多...几块钱左右）
 >
+
 获取方式:
 
 - 打开 [DeepSeek 开放平台](https://platform.deepseek.com/),注册并登录;
@@ -45,14 +46,20 @@ pin: false
 ### 第二步:运行脚本
 
 在脚本文件上**右键 → 使用 终端（或PowerShell） 运行**。
+
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/ps1.png)
 > 注：使用较新电脑的同学们右键点击 **使用 终端 打开**
->
+
+
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/ps2.png)
+
 这时候会弹出Node安装对话框，一直点next即可。
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/node1.png)
+
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/node2.png)
+
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/node3.png)
+
 回到我们的脚本，等待安装。直到弹出输入API的提示，可以进入下一步
 
 ### 第三步:填入你的 API Key
@@ -61,7 +68,9 @@ pin: false
 直到弹出输入 **API KEY** ，将我们刚刚创建的deepseek复制的那一大串粘贴进去（Ctrl + V）
 
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/ps3.png)
+
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/ps4.png)
+
 再次等待，直到退出。
 
 #### 此时 Claude Code 已经安装**完毕**
@@ -77,6 +86,7 @@ pin: false
 claude
 ```
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/ps5.png)
+
 回车保持默认即可。
 接下来就进入欢迎界面了。
 
@@ -100,7 +110,7 @@ claude
 >->  Email: lmyum@protonmail.com
 {: .prompt-info }
 
-[想尝试更多安装方式?](https:/https://lucky-ro.github.io/posts/claude-code-manual-setup/)
+[想尝试更多安装方式?](https://lucky-ro.github.io/posts/claude-code-manual-setup/)
 
 [好奇这个脚本到底做了什么?](https://lucky-ro.github.io/posts/go-claude-code-script-analysis/)
 
