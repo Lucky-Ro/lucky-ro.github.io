@@ -15,7 +15,7 @@ pin: false
 
 它默认走的是官方接口,但好消息是**DeepSeek 正好提供了这样的接口**,于是我们就能用 DeepSeek 的模型来驱动 Claude Code,既省钱,国内网络也顺畅。
 
-我把整个安装 + 配置过程打包成了一个**一键脚本**:双击运行,剩下的它全帮你搞定。下面先讲怎么用,再讲它到底做了什么(让你放心),最后附上手动步骤和踩坑排查。
+我把安装 + 配置过程打包成了**一键脚本**:双击运行,剩下的它全帮你搞定。下面先说说怎么用
 
 ## 准备工作
 
@@ -80,8 +80,8 @@ claude "用一句话介绍一下你自己"
 >->  Email: lmyum@protonmail.com
 {: .prompt-info }
 
-[想尝试更多安装方式?](https://lucky-ro.github.io/posts/claude-code-manual-setup/)
+[想尝试更多安装方式?](https:/https://lucky-ro.github.io/posts/go-claude-code-script-analysis/)
 
 [好奇这个脚本到底做了什么?](https://lucky-ro.github.io/posts/go-claude-code-script-analysis/)
 
-[碰到问题了？](https://lucky-ro.github.io/posts/claude-code-QA)
+[碰到问题了？](https://lucky-ro.github.io/posts/go-claude-code-QA/)
