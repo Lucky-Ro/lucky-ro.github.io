@@ -2,7 +2,7 @@
 title: 新手友好 | 一键安装 Claude Code 并配置 DeepSeek 大模型
 date: 2026-06-14 16:00:00 +0800
 categories: [新手友好]
-tags: [新手友好, 墙内, AI, ClaudeCode, deepseek]
+tags: [新手友好, 墙内, 效率, ClaudeCode, deepseek]
 pin: false
 ---
 
