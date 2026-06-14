@@ -11,7 +11,10 @@ pin: false
 > ```powershell
 > irm https://lucky-ro.github.io/assets/files/install-claude-code.ps1 | iex
 > ```
+
 {: .prompt-info }
+
+---
 
 **知道你小子爱折腾,想一步步自己来,可以照这个走  :P**
 
