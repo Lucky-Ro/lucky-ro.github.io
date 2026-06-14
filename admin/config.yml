@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: Lucky-Ro/lucky-ro.github.io # 你的 GitHub 倉庫
+  branch: main
+  base_url: https://sveltia-cms-auth.luomingyu2005.workers.dev
+
+media_folder: "assets/img/posts" # 在編輯器上傳圖片時，圖片存放的實體路徑
+public_folder: "/assets/img/posts" # 文章中引用圖片的網址路徑
+
+collections:
+  - name: "posts"
+    label: "博客文章"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" 
+    fields:
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "发布时间", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss ZZ"}
+      - {label: "分类", name: "categories", widget: "list", default: ["未分类"]}
+      - {label: "tags", name: "tags", widget: "list", default: ["随记"]}
+      - {label: "文章正文", name: "body", widget: "markdown"}
