@@ -1,5 +1,5 @@
 ---
-title: 进阶 | 手动安装 Claude Code 并配置 DeepSeek 大模型
+title: 进阶 | Claude Code 的更多安装方式
 date: 2026-06-14 16:02:00 +0800
 categories: [进阶]
 tags: [墙内, AI, ClaudeCode, deepseek]

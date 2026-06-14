@@ -100,7 +100,7 @@ claude
 >->  Email: lmyum@protonmail.com
 {: .prompt-info }
 
-[想尝试更多安装方式?](https:/https://lucky-ro.github.io/posts/go-claude-code-script-analysis/)
+[想尝试更多安装方式?](https:/https://lucky-ro.github.io/posts/claude-code-manual-setup/)
 
 [好奇这个脚本到底做了什么?](https://lucky-ro.github.io/posts/go-claude-code-script-analysis/)
 

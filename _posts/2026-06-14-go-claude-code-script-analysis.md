@@ -1,5 +1,5 @@
 ---
-title: 进阶 | 手动安装 Claude Code 并配置 DeepSeek 大模型
+title: 进阶 | 脚本到底做了什么呢?
 date: 2026-06-14 16:04:00 +0800
 categories: [进阶]
 tags: [进阶, AI, ClaudeCode]

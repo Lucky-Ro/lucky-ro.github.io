@@ -1,6 +1,6 @@
 ---
-title: 新手友好 | Claude Code安装常见问题
-date: 2026-06-14 16:00:00 +0800
+title: Claude Code安装常见问题
+date: 2026-06-14 16:06:00 +0800
 categories: [新手友好]
 tags: [新手友好, 墙内, AI, ClaudeCode, deepseek]
 pin: false
