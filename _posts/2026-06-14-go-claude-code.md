@@ -1,6 +1,6 @@
 ---
 title: 新手友好 | 一键安装 Claude Code 并配置 DeepSeek 大模型
-date: 2026-06-14 16:00:00 +0800
+date: 2026-06-14 22:00:00 +0800
 categories: [新手友好]
 tags: [新手友好, 墙内, 效率, ClaudeCode, deepseek]
 pin: false
@@ -24,7 +24,7 @@ pin: false
 **1. 一台电脑。** 不需要任何编程基础。
 
 **2. 一个 DeepSeek API Key。** 这是脚本配置时要用到的「钥匙」
->（你需要向里面充些钱，应该不会花很多...几块钱左右）
+>（你需要向里面充些钱，跑一次试验大概是一块钱）
 >
 
 获取方式:
@@ -32,11 +32,12 @@ pin: false
 - 打开 [DeepSeek 开放平台](https://platform.deepseek.com/),注册并登录;
 - 进入「API Keys」页面,点击创建,复制保存好生成的密钥(以 `sk-` 开头)。
 
+[图文教程](/posts/api-tutorial/)
+
 > API Key 相当于你账户的密码。请妥善保管,**不要外发、不要写进截图**。
 {: .prompt-warning }
 
-## 一键安装(推荐)
-### 把一只大象放入冰箱只需三步
+## 一键安装
 
 ### 第一步:下载脚本（该脚本是我写的，没有病毒：））
 
@@ -52,14 +53,12 @@ pin: false
 
 > 注：使用较新电脑的同学们右键点击 **使用 终端 打开**
 
+[脚本闪退?无法打开?](/posts/go-claude-code-QA/#脚本闪退-无法打开)
 
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/ps2.png)
 
 这时候会弹出Node安装对话框，一直点next即可。
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/node1.png)
-
-![运行脚本](/assets/img/2026-06-14-go-claude-code/node2.png)
-
 ![运行脚本](/assets/img/2026-06-14-go-claude-code/node3.png)
 
 回到我们的脚本，等待安装。直到弹出输入API的提示，可以进入下一步
@@ -97,6 +96,8 @@ claude
 随便问一个问题
 它能正常回答,就代表 DeepSeek 也接通了,可以开始用了。
 
+[第一次运行API出错了?](/posts/go-claude-code-QA/#api-错误)
+
 ---
 
 ## 大功告成
@@ -108,12 +109,16 @@ claude
 慢慢你会发现命令行其实没那么可怕。
 
 ---
->有问题欢迎写信交流 ：）
->->  Email: lmyum@protonmail.com
+>欢迎交流 ：）
+> ==>  Email: lmyum@protonmail.com
 {: .prompt-info }
 
-[想尝试更多安装方式?](https://lucky-ro.github.io/posts/claude-code-manual-setup/)
+[AI老让我确认太烦人?认识Claude Code权限](/posts/understanding-claude-code-permissions)
 
-[好奇这个脚本到底做了什么?](https://lucky-ro.github.io/posts/go-claude-code-script-analysis/)
+[想尝试更多安装方式?](/posts/claude-code-manual-setup/)
 
-[碰到问题了？](https://lucky-ro.github.io/posts/go-claude-code-QA/)
+[好奇这个脚本到底做了什么?](/posts/go-claude-code-script-analysis/)
+
+[API出错了?](/posts/go-claude-code-QA/#api-错误)
+
+[碰到问题了？](/posts/go-claude-code-QA/)

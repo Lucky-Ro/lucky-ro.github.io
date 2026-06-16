@@ -67,4 +67,4 @@ claude "用一句话介绍一下你自己"
 
 ---
 
-[碰到问题？](https://lucky-ro.github.io/posts/go-claude-code-QA)
+[碰到问题？](/posts/go-claude-code-QA)

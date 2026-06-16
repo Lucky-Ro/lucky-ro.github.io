@@ -12,12 +12,12 @@
 
 /* 暗色模式：手动切到暗色时换头像 */
 html[data-mode='dark'] #avatar img {
-  content: url('https://cdn.jsdelivr.net/gh/Lucky-Ro/lucky-ro.github.io/assets/img/avatar-dark.jpg');
+  content: url('/assets/img/avatar-dark.jpg');
 }
 
 /* 暗色模式：跟随系统为暗色、且用户没手动锁定为亮色时换头像 */
 @media (prefers-color-scheme: dark) {
   html:not([data-mode='light']) #avatar img {
-    content: url('https://cdn.jsdelivr.net/gh/Lucky-Ro/lucky-ro.github.io/assets/img/avatar-dark.jpg');
+    content: url('/assets/img/avatar-dark.jpg');
   }
 }

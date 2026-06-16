@@ -1,17 +1,24 @@
 ---
-title: 新手友好 | Hadoop报告插件教程（hadoop-lab-report skill）
-date: 2026-06-14 12:00:00 +0800
+title: 新手友好 | Hadoop报告插件教程
+date: 2026-06-14 23:00:00 +0800
 categories: [湛科作业克星]
 tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 ---
 
+> ### 更新适配 Hadoop 实训内容 <a href="/assets/files/update-claude-skill.ps1" download> **点击运行脚本更新**</a>
+> [脚本闪退?无法打开?](/posts/go-claude-code-QA/#脚本闪退-无法打开)
+> 
+> 使用时请备份虚拟机 
+> [如何备份?](/posts/hadoop-lab-report-docs/#注意事项)
+{: .prompt-tip }
+
 ## 这是啥东东？
 
-> **把重复的实验劳动自动化，将时间还给大学生。**
+> **我想干的，就是把时间还给大学生。**
 
 抄教程、敲命令、等结果、截图，再一张张塞进 Word 里排版……一次 Hadoop 实验跑下来，真正动脑的没几步，剩下大半个下午全耗在 **CtrlCV** 上。
 
-这个 skill 想干的，就是把这些重复环节交给 AI —— 只需**说一句话**，它就自动帮你：
+这个skill会把这些重复环节交给 AI —— 只需**说一句话**，它就自动帮你：
 
 > **读教程 → 在你的虚拟机上执行 → 截图 → 生成 Word 实验报告**
 
@@ -27,11 +34,11 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 
 **1. 安装并配置 Claude Code**
 
-还不会配置？看这篇 → [新手友好：三步配置 Claude Code 与 DeepSeek](https://lucky-ro.github.io/posts/go-claude-code)
+还没有安装？看这篇 → [新手友好：三步配置 Claude Code 与 DeepSeek](/posts/go-claude-code)
 
 **2. 下载 SKILL 技能安装脚本**（该脚本是我写的，没有病毒：））
 
-<a href="/assets/files/update-claude-skill.ps1" download> **点击下载 ：）**(update-claude-skill.ps1)</a>
+
 
 **3. 运行脚本**
 
@@ -43,6 +50,8 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 {: .prompt-tip }
 
 ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/ps1.png){: .w-75 }
+
+[脚本闪退?无法打开?](/posts/go-claude-code-QA/#脚本闪退-无法打开)
 
 当命令窗消失之后，就代表安装好了。可以在 `C:\Users\你的用户名\.claude\skills` 里查看安装结果。
 
@@ -101,6 +110,12 @@ https://heisun.xyz/docs/hadoop-e/hadoop-e05
 ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude8.png){: .w-75 }
 
 **你只管去忙别的，回来报告就躺在工作目录里 —— 交完作业，省下的这段时间归你 ：）**
+
+>[API 粗错了?](/posts/go-claude-code-QA/#api-错误)
+{: .prompt-warning }
+
+>[AI老让我确认太烦人?如何完全自动做做实验?](/posts/understanding-claude-code-permissions/#完全权限-dangerously-skip-permissions)
+{: .prompt-tip }
 
 > 换实验同理：把 `hadoop-e05` 换成 `hadoop-e01`～`hadoop-e07`（对应 P1–P7）即可，身份和连接信息不用重新填。
 
