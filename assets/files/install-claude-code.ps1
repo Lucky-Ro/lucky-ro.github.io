@@ -432,7 +432,7 @@ $settings = [ordered]@{
   env = [ordered]@{
     ANTHROPIC_BASE_URL   = "https://api.deepseek.com/anthropic"
     ANTHROPIC_AUTH_TOKEN = $deepSeekKey
-    ANTHROPIC_MODEL      = "deepseek-chat"
+    ANTHROPIC_MODEL      = "deepseek-v4-pro"
     CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
   }
   includeCoAuthoredBy = $false
