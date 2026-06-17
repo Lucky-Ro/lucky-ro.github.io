@@ -14,7 +14,7 @@ pin: false
 
 > ### **闪退; 禁止运行脚本** 看这里
 
-![禁止运行脚本,导致的闪退?](/assets/img/2026-06-14-go-claude-code-QA/0.png){: .w-75 }
+![禁止运行脚本,导致的闪退?](/assets/img/2026-06-14-go-claude-code-QA/0.png)
 
 管理员打开**终端/powershell**
 

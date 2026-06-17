@@ -1,7 +1,7 @@
 ---
 title: 新手友好 | Hadoop报告插件教程
 date: 2026-06-14 23:00:00 +0800
-categories: [湛科作业克星]
+categories: [新手友好]
 tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 ---
 
