@@ -12,6 +12,28 @@ pin: false
 
 ## 脚本闪退? 无法打开?
 
+> ### **闪退; 禁止运行脚本** 看这里
+
+![禁止运行脚本,导致的闪退?](/assets/img/2026-06-14-go-claude-code-QA/0.png){: .w-75 }
+
+管理员打开**终端/powershell**
+
+输入
+
+```powershell
+Set-ExecutionPolicy Unrestricted
+```
+
+即可解除限制
+
+运行时可能弹出 策略更改 确认提示
+
+![权限更改提示](/assets/img/2026-06-14-go-claude-code-QA/0.5.png)
+
+按 **[Y] 是 或 [A] 全是** 即可
+
+> ### **无数字签名**报错 看这里
+
 ![没有数字签名?](/assets/img/2026-06-14-go-claude-code-QA/1.png){: .w-75 }
 
 右键脚本,选择**属性**

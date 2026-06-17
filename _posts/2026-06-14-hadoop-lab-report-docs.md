@@ -10,9 +10,16 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 > 
 > 使用时请备份虚拟机 
 > [如何备份?](/posts/hadoop-lab-report-docs/#注意事项)
+>
+> 参考提示词
+> ```
+> 用 hadoop-lab-report skill 帮我跑 P3 实验并完成报告，教程地址：
+> heisun.xyz/docs/hadoop-training-v2/hadoop-training03/
+> 最终报告放在工作目录根目录，命名为 …-P3-完成.docx
+> ```
 {: .prompt-tip }
 
-## 这是啥东东？
+## 啥玩意儿？
 
 > **我想干的，就是把时间还给大学生。**
 
@@ -81,8 +88,10 @@ tags: [Hadoop, 效率, 新手友好, Claude Code, skill]
 然后输入：
 
 ```powershell
-claude
+claude --dangerously-skip-permissions
 ```
+
+[*为何要加 --dangerously-skip-permissions?*](/posts/understanding-claude-code-permissions/#完全权限-dangerously-skip-permissions)
 
 ![运行脚本](/assets/img/2026-06-14-hadoop-lab-report-docs/claude5.png){: .w-75 }
 
@@ -99,7 +108,7 @@ claude
 在 Claude Code 的对话框里**直接说**：
 
 ```
-用 hadoop-lab-report skill 帮我跑 P5 实验并续写报告，教程地址：
+用 hadoop-lab-report skill 帮我跑 P5 实验并完成报告，教程地址：
 https://heisun.xyz/docs/hadoop-e/hadoop-e05
 
 最终报告放在工作目录根目录，命名为 …-P5-完成.docx

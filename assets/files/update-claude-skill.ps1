@@ -2,9 +2,17 @@
   从 GitHub 拉取最新的 skill 到本地 Claude skills 目录；
   GitHub 网络不畅时自动回退到 Gitee。
 
-  原理：下载仓库 zip -> 解压 -> 把 skill 复制到
-        C:\Users\<你>\.claude\skills\ 下（覆盖同名）。无需安装 git。
-  （若 Gitee 的 zip 被验证码拦下，会在装了 git 时自动改用 git clone。）
+  来源优先级（谁先成功用谁）：
+    1) GitHub  下载 zip（无需 git）
+    2) Gitee   git clone（最稳；找不到 git 时会自动“找 git → 临时装 git”，见下）
+    3) Gitee   下载 zip（没装 git 时的兜底；Gitee 归档常被异步打包/验证码拦截）
+
+  关于第 2 步的 git：按顺序解析一个可用的 git.exe——
+    a) 先看 PATH 上有没有 git；
+    b) 没有就去上一个「安装 Claude Code」脚本装的便携目录里找
+       （%LOCALAPPDATA%\claude-code-installer\PortableGit\cmd\git.exe）；
+    c) 还找不到，就从国内镜像临时下载一份便携 git，解压到临时目录使用，
+       脚本结束时随临时目录一并删除（不污染系统、不改 PATH）。
 
   重复运行即可获取最新版本。仅适用于「公开仓库」。
 #>
@@ -12,20 +20,32 @@
 # ===== 按需修改的配置 =====
 $GitHubRepo = "Lucky-Ro/zjkju_Copilot"    # GitHub: owner/name
 $GiteeRepo  = "lucky_ro/zjkju_Copilot"    # Gitee:  owner/name
-$Branch     = "main"                        # 分支名
+$Branch     = "main"                        # 分支名（远端默认分支不是它时，git 克隆会自动改用默认分支）
 $SkillName  = "hadoop-lab-report"           # 要拉的 skill 文件夹名；留空 "" = 拉取 skill/ 下全部
+
+# 临时 git 用的便携版版本（与「安装 Claude Code」脚本保持一致，国内镜像已验证可下）
+$GitVersion = "2.54.0"
+$GitTag     = "v2.54.0.windows.1"
 # ==========================
 
 $ErrorActionPreference = "Stop"
+$ProgressPreference    = "SilentlyContinue"   # 关掉下载进度条，避免与 Write-Host 抢屏造成“文字重影”
 $script:ExitCode = 0
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch {}
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+# 解析到的 git.exe（缓存，避免同一次运行重复查找/重复下载）
+$script:GitExe      = $null
+$script:GitResolved = $false
+$script:TempGitDir  = $null   # 临时下载的 git 解压目录（位于 $TmpDir 下，结束随之删除）
 
 # 目标目录：C:\Users\<你>\.claude\skills
 $SkillsDir = Join-Path $env:USERPROFILE ".claude\skills"
 
 # 临时工作目录
 $TmpDir = Join-Path ([IO.Path]::GetTempPath()) ("skill-sync-" + [guid]::NewGuid().ToString("N"))
+
+# ---------------- zip 来源 ----------------
 
 # 判断一个文件是否为真 zip（前两字节应为 PK）。Gitee 偶尔返回验证页/等待页而非 zip。
 function Test-IsZip {
@@ -78,22 +98,145 @@ function Get-FromZip {
     if ($root) { return $root.FullName } else { return $null }
 }
 
-# 用 git clone 兜底（需已安装 git），返回克隆出的目录；失败返回 $null
+# ---------------- git 解析 / 获取 ----------------
+
+function Get-LocalAppData {
+    if (-not [string]::IsNullOrWhiteSpace($env:LOCALAPPDATA)) { return $env:LOCALAPPDATA }
+    if (-not [string]::IsNullOrWhiteSpace($env:USERPROFILE)) { return (Join-Path $env:USERPROFILE "AppData\Local") }
+    return ([IO.Path]::GetTempPath().TrimEnd('\'))
+}
+
+# 在「安装 Claude Code」脚本装的便携目录里找 git.exe
+function Get-PortableGitFromInstaller {
+    $root = Join-Path (Get-LocalAppData) "claude-code-installer"
+    $exe  = Join-Path $root "PortableGit\cmd\git.exe"
+    if (Test-Path $exe) { return $exe }
+    # 万一目录布局不同，在该目录下兜底搜一把 cmd\git.exe
+    if (Test-Path $root) {
+        $hit = Get-ChildItem -Path $root -Recurse -Filter git.exe -ErrorAction SilentlyContinue |
+               Where-Object { $_.FullName -match '\\cmd\\git\.exe$' } | Select-Object -First 1
+        if ($hit) { return $hit.FullName }
+    }
+    return $null
+}
+
+# 选定与本机架构匹配的 PortableGit 自解压包文件名
+function Get-PortableGitFileName {
+    $arch = ""
+    try { $arch = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString().ToLowerInvariant() } catch {}
+    if ($arch -eq "arm64" -or $env:PROCESSOR_ARCHITECTURE -match "ARM64" -or $env:PROCESSOR_ARCHITEW6432 -match "ARM64") {
+        return "PortableGit-$GitVersion-arm64.7z.exe"
+    }
+    return "PortableGit-$GitVersion-64-bit.7z.exe"
+}
+
+# 从国内镜像临时下载一份便携 git，解压到 $WorkDir 下（随 $TmpDir 一起删）。成功返回 git.exe 路径。
+function Install-TempGit {
+    param([string]$WorkDir)
+    $fileName = Get-PortableGitFileName
+    $dlDir  = Join-Path $WorkDir "git-download"
+    $gitDir = Join-Path $WorkDir "PortableGit"
+    New-Item -ItemType Directory -Force -Path $dlDir | Out-Null
+    $sfx = Join-Path $dlDir $fileName
+
+    # 与「安装 Claude Code」脚本相同的镜像顺序（国内优先，GitHub 兜底）
+    $sources = @(
+        "https://registry.npmmirror.com/-/binary/git-for-windows/$GitTag/$fileName",
+        "https://cdn.npmmirror.com/binaries/git-for-windows/$GitTag/$fileName",
+        "https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/LatestRelease/$fileName",
+        "https://github.com/git-for-windows/git/releases/download/$GitTag/$fileName"
+    )
+
+    Write-Host "    本机找不到 git，临时从国内镜像下载一份便携 git（用完即删，不改 PATH）…" -ForegroundColor DarkYellow
+    $got = $false
+    foreach ($url in $sources) {
+        try {
+            Write-Host "    下载：$url" -ForegroundColor DarkGray
+            Invoke-WebRequest -Uri $url -OutFile $sfx -UseBasicParsing -TimeoutSec 180
+            if ((Test-Path $sfx) -and ((Get-Item $sfx).Length -gt 1MB)) { $got = $true; break }
+        } catch {
+            Write-Host "    该源失败：$($_.Exception.Message)" -ForegroundColor DarkGray
+        }
+        Remove-Item $sfx -Force -ErrorAction SilentlyContinue
+    }
+    if (-not $got) {
+        Write-Host "    临时 git 下载失败（所有镜像都不可用）。" -ForegroundColor DarkYellow
+        return $null
+    }
+
+    try {
+        New-Item -ItemType Directory -Force -Path $gitDir | Out-Null
+        # PortableGit 是 7-Zip 自解压包：-y 全部确认，-o 指定输出目录
+        $p = Start-Process -FilePath $sfx -ArgumentList "-y -o`"$gitDir`"" -Wait -PassThru
+        if ($p.ExitCode -ne 0) {
+            Write-Host "    临时 git 解压失败（退出码 $($p.ExitCode)）。" -ForegroundColor DarkYellow
+            return $null
+        }
+    } catch {
+        Write-Host "    临时 git 解压异常：$($_.Exception.Message)" -ForegroundColor DarkYellow
+        return $null
+    }
+
+    $exe = Join-Path $gitDir "cmd\git.exe"
+    if (Test-Path $exe) {
+        $script:TempGitDir = $gitDir
+        Write-Host "    临时 git 就绪：$exe" -ForegroundColor DarkGray
+        return $exe
+    }
+    Write-Host "    临时 git 解压后未找到 git.exe。" -ForegroundColor DarkYellow
+    return $null
+}
+
+# 解析链：PATH 上的 git -> 安装器里的便携 git -> 临时下载。结果缓存。
+function Resolve-GitExe {
+    param([string]$WorkDir)
+    if ($script:GitResolved) { return $script:GitExe }
+    $script:GitResolved = $true
+
+    # a) PATH 上的 git
+    $cmd = Get-Command git -ErrorAction SilentlyContinue
+    if ($cmd -and -not [string]::IsNullOrWhiteSpace($cmd.Source)) {
+        $script:GitExe = $cmd.Source
+        Write-Host "    git 来源：PATH（$($script:GitExe)）" -ForegroundColor DarkGray
+        return $script:GitExe
+    }
+
+    # b) 「安装 Claude Code」脚本装的便携 git
+    $portable = Get-PortableGitFromInstaller
+    if ($portable) {
+        $script:GitExe = $portable
+        Write-Host "    PATH 上没有 git，改用安装器里的便携 git：$portable" -ForegroundColor DarkGray
+        return $script:GitExe
+    }
+
+    # c) 临时下载一份
+    $script:GitExe = Install-TempGit -WorkDir $WorkDir
+    return $script:GitExe
+}
+
+# 用 git clone 拉取（git 由 Resolve-GitExe 提供），返回克隆出的目录；失败返回 $null
 function Get-FromGit {
     param([string]$Name, [string]$CloneUrl, [string]$WorkDir)
-    if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-        Write-Host "    未检测到 git，跳过 $Name 克隆。" -ForegroundColor DarkYellow
+    $git = Resolve-GitExe -WorkDir $WorkDir
+    if ([string]::IsNullOrWhiteSpace($git)) {
+        Write-Host "    没有可用的 git，跳过 $Name 克隆。" -ForegroundColor DarkYellow
         return $null
     }
     $dest = Join-Path $WorkDir "repo"
     Write-Host "==> 尝试用 git 从 $Name 克隆：$CloneUrl" -ForegroundColor Cyan
     # git clone 会把进度写到 stderr；在 $ErrorActionPreference='Stop' 下，
-    # Windows PowerShell 5.1 容易把 stderr 当成终止性错误抛出，从而拖崩整个脚本。
-    # 因此临时降级为 Continue、吞掉 stderr，并用 try/catch 兜底，确保失败也只是干净返回 $null。
+    # Windows PowerShell 5.1 容易把 stderr 当成终止性错误抛出。这里临时降级为 Continue。
     $oldEAP = $ErrorActionPreference
     try {
         $ErrorActionPreference = 'Continue'
-        git clone --quiet --depth 1 --branch $Branch $CloneUrl $dest 2>&1 | Out-Null
+        # 先按指定分支浅克隆；若分支名对不上（如远端默认是 master 而非 main），
+        # 再退回「不指定分支」克隆默认分支，避免因分支名导致整个 Gitee 兜底白白失效。
+        & $git clone --quiet --depth 1 --branch $Branch $CloneUrl $dest 2>&1 | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "    指定分支 '$Branch' 克隆失败（退出码 $LASTEXITCODE），改用默认分支重试…" -ForegroundColor DarkYellow
+            if (Test-Path $dest) { Remove-Item -Recurse -Force $dest -ErrorAction SilentlyContinue }
+            & $git clone --quiet --depth 1 $CloneUrl $dest 2>&1 | Out-Null
+        }
     } catch {
         Write-Host "    $Name 克隆异常：$($_.Exception.Message)" -ForegroundColor DarkYellow
         return $null
@@ -105,18 +248,21 @@ function Get-FromGit {
     return $null
 }
 
+# ---------------- 主流程 ----------------
+
 try {
     Write-Host "==> 准备目录..." -ForegroundColor Cyan
     New-Item -ItemType Directory -Force -Path $TmpDir    | Out-Null
     New-Item -ItemType Directory -Force -Path $SkillsDir | Out-Null
 
-    # 依次尝试各来源，谁先成功用谁
+    # 依次尝试各来源，谁先成功用谁。
+    # Gitee 优先用 git clone（稳），把 Gitee 的 zip 降为最后兜底。
     $repoRoot = $null
     $usedFrom = $null
     $attempts = @(
         @{ Kind = "zip"; Name = "GitHub"; Arg = "https://github.com/$GitHubRepo/archive/refs/heads/$Branch.zip" },
-        @{ Kind = "zip"; Name = "Gitee";  Arg = "https://gitee.com/$GiteeRepo/repository/archive/$Branch.zip" },
-        @{ Kind = "git"; Name = "Gitee";  Arg = "https://gitee.com/$GiteeRepo.git" }
+        @{ Kind = "git"; Name = "Gitee";  Arg = "https://gitee.com/$GiteeRepo.git" },
+        @{ Kind = "zip"; Name = "Gitee";  Arg = "https://gitee.com/$GiteeRepo/repository/archive/$Branch.zip" }
     )
 
     foreach ($a in $attempts) {
@@ -169,7 +315,11 @@ catch {
     $script:ExitCode = 1
 }
 finally {
+    # 清理临时目录：临时下载的 git 也在这里面，一并删除（满足“用完即删”）
     if (Test-Path $TmpDir) { Remove-Item -Recurse -Force $TmpDir -ErrorAction SilentlyContinue }
+    if ($script:TempGitDir) {
+        Write-Host "（本次临时下载的 git 已随临时目录一并删除）" -ForegroundColor DarkGray
+    }
     # 双击运行时窗口会自动关闭，错误会「一闪而过」。这里停一下，让成功/失败信息都看得清。
     if ([Environment]::UserInteractive) {
         Write-Host ""
