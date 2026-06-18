@@ -1,0 +1,39 @@
+<!-- 邮件订阅区块：把邮箱 POST 到第三方（follow.it）的 RSS→邮件服务，配置见 _config.yml 的 `subscribe` -->
+{% if site.subscribe.enabled and site.subscribe.action %}
+  <div class="subscribe-box">
+    <h3 class="subscribe-title">{{ site.subscribe.title | default: '订阅本博客' }}</h3>
+
+    {% if site.subscribe.desc %}
+      <p class="subscribe-desc text-muted">{{ site.subscribe.desc }}</p>
+    {% endif %}
+
+    <form
+      class="subscribe-form"
+      method="post"
+      action="{{ site.subscribe.action }}"
+      target="_blank"
+      rel="noopener"
+    >
+      <input
+        type="email"
+        name="{{ site.subscribe.email_field | default: 'email' }}"
+        class="form-control"
+        placeholder="you@email.com"
+        autocomplete="email"
+        spellcheck="false"
+        required
+      >
+      <button type="submit" class="btn btn-primary">
+        {{ site.subscribe.button | default: '订阅' }}
+      </button>
+    </form>
+
+    <small class="subscribe-foot text-muted d-block">
+      <a href="{{ '/feed.xml' | relative_url }}"> RSS 阅读器? </a>
+      {% if site.subscribe.powered_by %}
+        ·
+        Powered by <a href="https://follow.it" target="_blank" rel="noopener">follow.it</a>
+      {% endif %}
+    </small>
+  </div>
+{% endif %}

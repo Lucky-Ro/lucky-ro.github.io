@@ -21,3 +21,83 @@ html[data-mode='dark'] #avatar img {
     content: url('/assets/img/avatar-dark.jpg');
   }
 }
+
+/* 文章末尾的邮件订阅区块（_includes/subscribe.html）
+   说明：全部用 Chirpy 的主题变量上色，这些变量在 _light.scss / _dark.scss 都有定义，
+   因此能随明/暗模式自动切换。Bootstrap 的 .form-control 默认是写死的白底深字
+   （Chirpy 不走 data-bs-theme），暗色下会变成「深卡片上的白输入框」，这里显式覆盖修正。 */
+.subscribe-box {
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.75rem;
+  /* 以页面底色为基，叠 5% 中性灰：亮色下卡片略灰于纯白页、暗色下略亮于深色页，
+     两种模式都与内部输入框形成对比 */
+  background-color: var(--main-bg);
+  background-image: linear-gradient(
+    rgba(127, 127, 127, 0.05),
+    rgba(127, 127, 127, 0.05)
+  );
+
+  .subscribe-title {
+    margin-top: 0;
+    margin-bottom: 0.35rem;
+    font-size: 1.25rem;
+    color: var(--text-color);
+  }
+
+  .subscribe-desc {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+  }
+
+  .subscribe-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    .form-control {
+      flex: 1 1 220px;
+      min-width: 0;
+      /* 关键：用主题变量取代 Bootstrap 写死的白底 */
+      background-color: var(--main-bg);
+      border: 1px solid var(--search-border-color);
+      color: var(--text-color);
+
+      &::placeholder {
+        color: var(--text-muted-color);
+        opacity: 1;
+      }
+
+      &:focus {
+        background-color: var(--main-bg);
+        border-color: var(--input-focus-border-color);
+        color: var(--text-color);
+        box-shadow: none; /* 去掉 Bootstrap 默认蓝色光晕 */
+      }
+    }
+
+    .btn {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+  }
+
+  .subscribe-foot {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted-color);
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  /* 窄屏：输入框与按钮各占一行 */
+  @media (max-width: 576px) {
+    .subscribe-form .btn {
+      flex: 1 1 100%;
+    }
+  }
+}

@@ -130,6 +130,17 @@ comments:
     lang: # optional, default to the value of `site.lang`
     reactions_enabled: # optional, default to the value of `1`
 
+# 邮件订阅（RSS → 邮件自动推送，由 follow.it 监控 /feed.xml 在有新文章时自动发信）
+subscribe:
+  enabled: true
+  # follow.it 嵌入表单的 action 端点；换 Buttondown/Mailchimp 等只需改这一行
+  action: "https://api.follow.it/subscription-form/SjNMRWFFcEdkTHZMQjRmOTlRNXRxOTBPOUxoTThpbDJHcks5THA4RVdHSGRpTzIydTY1dlhoQkx5QTY4WjQ5RkRVSWgyczlUQ2FxRHNCNm1MQ1hQbVZ2aS9XTXh3L09RcFJFMWJiRXRrVmRETm5sM3NEaE9oZEhIc3F4WVJuaFh8MjBxbmplQ1liM1MwYmh2MENBbCszQ1NsVW01aDRRWmlKMkduQlQvM1hxOD0=/8"
+  email_field: email # 第三方期望的邮箱字段名（follow.it=email；Mailchimp=EMAIL）
+  title: "订阅本博客"
+  desc: "留下邮箱，订阅本博客 :)"
+  button: "订阅"
+  powered_by: true # 显示一行小字 “Powered by follow.it”（免费版礼貌保留）
+
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
   self_host:
